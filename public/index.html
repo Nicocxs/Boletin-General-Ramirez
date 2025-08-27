@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Boletín Comunitario</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><h1>Boletín Comunitario - General Ramirez</h1></header>
+
+<nav class="nav">
+  <a href="#publicar">Publicar</a>
+  <a href="#posts">Publicaciones</a>
+  <a href="#cuenta">Cuenta</a>
+</nav>
+
+<main>
+  <section id="cuenta" class="card">
+    <h2>Cuenta</h2>
+    <div class="forms">
+      <form id="registerForm">
+        <h3>Registrarse</h3>
+        <input name="username" placeholder="Usuario" required>
+        <input name="email" type="email" placeholder="Correo" required>
+        <input name="password" type="password" placeholder="Contraseña" required>
+        <button>Registrar</button>
+      </form>
+
+      <form id="loginForm">
+        <h3>Iniciar Sesión</h3>
+        <input name="email" type="email" placeholder="Correo" required>
+        <input name="password" type="password" placeholder="Contraseña" required>
+        <button>Entrar</button>
+        <button type="button" id="logoutBtn" class="hidden">Cerrar sesión</button>
+        <p id="welcome"></p>
+      </form>
+    </div>
+  </section>
+
+  <section id="publicar" class="card">
+    <h2>Publicar</h2>
+    <form id="postForm" enctype="multipart/form-data">
+      <input name="title" placeholder="Título" required>
+      <textarea name="content" placeholder="Contenido" required></textarea>
+      <select name="category" required>
+        <option value="">-- Seleccione categoría --</option>
+        <option value="noticias">Noticias</option>
+        <option value="eventos">Eventos</option>
+        <option value="anuncios">Anuncios</option>
+      </select>
+      <input type="file" name="image" accept="image/*">
+      <button>Publicar</button>
+    </form>
+    <p id="mustLogin">🔒 Debes iniciar sesión para publicar</p>
+  </section>
+
+  <section id="posts" class="card">
+    <h2>Publicaciones</h2>
+    <div id="postsList"></div>
+  </section>
+</main>
+
+<script src="main.js"></script>
+</body>
+</html>

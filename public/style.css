@@ -1,0 +1,18 @@
+
+:root{ --primary:#2e8b57; --bg:#f9f9f9; --card:#fff; --text:#333; --muted:#666 }
+*{box-sizing:border-box}
+body{font-family:Inter, Roboto, Arial; background:var(--bg); color:var(--text); margin:0; padding:0;}
+header{background:linear-gradient(180deg, #2e8b57, #3cb371); color:white; padding:32px 16px; text-align:center;}
+.nav{display:flex;gap:8px;padding:8px 16px;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.05);}
+.nav a{color:var(--primary);text-decoration:none;padding:8px 12px;border-radius:6px;}
+main{max-width:980px;margin:24px auto;padding:0 16px;}
+.card{background:var(--card);padding:18px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,.06);margin-bottom:18px;}
+.forms{display:flex;gap:16px;flex-wrap:wrap;}
+.forms form{flex:1;min-width:220px;}
+input,textarea,select,button{width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid #ddd;}
+button{background:var(--primary);color:white;border:none;cursor:pointer;}
+button.hidden{display:none;}
+.post{border-bottom:1px solid #eee;padding:12px 0;}
+.post img{max-width:240px;display:block;margin:8px 0;border-radius:8px;}
+.comment{background:#f1f1f1;padding:8px;border-radius:6px;margin:6px 0;}
+.small{font-size:.9rem;color:var(--muted)}
