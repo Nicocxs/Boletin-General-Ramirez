@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boletín Comunitario - General Ramirez</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<style>
+:root{
+  --primary:#2e8b57;
+  --secondary:#3cb371;
+  --accent-gradient:linear-gradient(135deg,#f4a261,#e76f51);
+  --bg:#f9f9f9;
+  --card:#fff;
+  --text:#333;
+  --light-text:#555;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Roboto',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;scroll-behavior:smooth;}
+header{
+  background:url('https://source.unsplash.com/1600x600/?village') no-repeat center/cover;
+  color:white;padding:120px 20px 80px;text-align:center;position:relative;overflow:hidden;
+}
+header::after{content:"";position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);}
+header h1{position:relative;font-family:'Poppins',sans-serif;font-weight:600;font-size:3rem;z-index:1;animation:fadeDown 1.2s ease;}
+nav{background:var(--secondary);display:flex;justify-content:center;flex-wrap:wrap;position:sticky;top:0;z-index:1000;}
+nav a{color:white;text-decoration:none;padding:15px 25px;font-weight:500;transition:0.3s;}
+nav a:hover{background:var(--primary);border-radius:5px;transform:scale(1.05);}
+section{padding:60px 20px;max-width:1000px;margin:auto;animation:fadeUp 0.8s ease;}
+section h2{font-family:'Poppins',sans-serif;font-weight:600;font-size:2.5rem;color:var(--primary);margin-bottom:40px;text-align:center;}
+.card{
+  background:var(--card);
+  padding:25px;margin:20px 0;
+  border-radius:12px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.1);
+  transition:all 0.3s ease;
+  animation:fadeCard 0.6s ease;
+}
+.card:hover{transform:translateY(-5px);box-shadow:0 12px 24px rgba(0,0,0,0.15);}
+.card img{max-width:100%;border-radius:10px;margin-bottom:10px;}
+.card h3{color:var(--secondary);margin-bottom:10px;}
+.card p{color:var(--light-text);}
+.btn{display:inline-block;background:var(--accent-gradient);color:white;padding:12px 25px;border-radius:8px;text-decoration:none;font-weight:500;transition:0.3s;}
+.btn:hover{background:var(--secondary);transform:scale(1.05);}
+form{display:flex;flex-direction:column;gap:15px;max-width:500px;margin:auto;}
+input,textarea,select{padding:14px;border-radius:8px;border:1px solid #ccc;font-size:1rem;transition:0.3s;}
+input:focus,textarea:focus,select:focus{border-color:var(--primary);box-shadow:0 0 6px rgba(46,139,87,0.4);}
+button{background:var(--primary);color:white;border:none;padding:14px;border-radius:8px;font-size:1rem;cursor:pointer;transition:0.3s;}
+button:hover{background:var(--secondary);transform:scale(1.03);}
+footer{text-align:center;padding:30px;background:var(--primary);color:white;margin-top:50px;}
+.comment-box{margin-top:15px;}
+.comment{background:#f1f1f1;padding:10px;margin:5px 0;border-radius:6px;}
+.hidden{display:none;}
+.delete-btn{
+  background:#e63946;
+  margin-top:10px;
+}
+.delete-btn:hover{background:#c82333;}
+
+/* Animaciones */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-30px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeCard{from{opacity:0;transform:scale(0.95);}to{opacity:1;transform:scale(1);}}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Boletín Comunitario - General Ramirez</h1>
+</header>
+
+<nav>
+  <a href="#noticias"><i class="fas fa-newspaper"></i> Noticias</a>
+  <a href="#eventos"><i class="fas fa-calendar-alt"></i> Eventos</a>
+  <a href="#anuncios"><i class="fas fa-bullhorn"></i> Anuncios</a>
+  <a href="#contacto"><i class="fas fa-envelope"></i> Contacto</a>
+  <a href="#login"><i class="fas fa-user"></i> Iniciar Sesión</a>
+</nav>
+
+<!-- Noticias -->
+<section id="noticias">
+  <h2>Noticias Recientes</h2>
+  <div id="noticias-list"></div>
+</section>
+
+<!-- Eventos -->
+<section id="eventos">
+  <h2>Eventos</h2>
+  <div id="eventos-list"></div>
+</section>
+
+<!-- Anuncios -->
+<section id="anuncios">
+  <h2>Anuncios de vecinos</h2>
+  <div id="anuncios-list"></div>
+</section>
+
+<!-- Publicar -->
+<section id="publicar">
+  <h2>Publicar</h2>
+  <form id="postForm" class="hidden">
+    <input type="text" id="titulo" placeholder="Título" required>
+    <textarea id="contenido" placeholder="Contenido" rows="4" required></textarea>
+    <select id="categoria" required>
+      <option value="">Selecciona categoría</option>
+      <option value="noticias">Noticias</option>
+      <option value="eventos">Eventos</option>
+      <option value="anuncios">Anuncios</option>
+    </select>
+    <input type="file" id="imagen" accept="image/*">
+    <img id="preview" style="max-width:200px;display:none;border-radius:8px;margin:auto;">
+    <button type="submit">Publicar</button>
+  </form>
+  <p id="msgLogin" style="text-align:center;">🔒 Debes iniciar sesión para publicar</p>
+</section>
+
+<!-- Login / Registro -->
+<section id="login">
+  <h2>Registro / Inicio de Sesión</h2>
+  <form id="registerForm">
+    <h3>Registrarse</h3>
+    <input type="text" id="regUser" placeholder="Usuario" required>
+    <input type="email" id="regEmail" placeholder="Correo electrónico" required>
+    <input type="password" id="regPass" placeholder="Contraseña" required>
+    <button type="submit">Registrarse</button>
+  </form>
+  <br>
+  <form id="loginForm">
+    <h3>Iniciar Sesión</h3>
+    <input type="text" id="logUser" placeholder="Usuario" required>
+    <input type="password" id="logPass" placeholder="Contraseña" required>
+    <button type="submit">Iniciar Sesión</button>
+  </form>
+  <p id="welcome" style="text-align:center;margin-top:20px;"></p>
+</section>
+
+<footer>
+  <p>Boletín Comunitario © 2025 | General Ramirez</p>
+</footer>
+
+<script>
+// ---------------- USUARIOS ----------------
+let currentUser = null;
+let users = JSON.parse(localStorage.getItem("users")) || [];
+
+// Registro
+document.getElementById("registerForm").addEventListener("submit", e=>{
+  e.preventDefault();
+  const user = document.getElementById("regUser").value;
+  const email = document.getElementById("regEmail").value;
+  const pass = document.getElementById("regPass").value;
+  if(users.find(u=>u.user===user)){ alert("⚠️ Usuario ya existe"); return; }
+  users.push({user,email,pass});
+  localStorage.setItem("users", JSON.stringify(users));
+  alert("✅ Registro exitoso, ahora inicia sesión");
+});
+
+// Login
+document.getElementById("loginForm").addEventListener("submit", e=>{
+  e.preventDefault();
+  const user = document.getElementById("logUser").value;
+  const pass = document.getElementById("logPass").value;
+  const u = users.find(u=>u.user===user && u.pass===pass);
+  if(u){
+    currentUser = u;
+    document.getElementById("welcome").innerText = `👋 Bienvenido ${u.user}`;
+    document.getElementById("postForm").classList.remove("hidden");
+    document.getElementById("msgLogin").style.display="none";
+  } else {
+    alert("❌ Usuario o contraseña incorrectos");
+  }
+});
+
+// ---------------- PUBLICACIONES ----------------
+let posts = JSON.parse(localStorage.getItem("posts")) || [];
+
+function renderPosts(){
+  document.getElementById("noticias-list").innerHTML="";
+  document.getElementById("eventos-list").innerHTML="";
+  document.getElementById("anuncios-list").innerHTML="";
+  posts.forEach((p,i)=>{
+    const div=document.createElement("div");
+    div.className="card";
+    div.innerHTML=`
+      ${p.imagen?`<img src="${p.imagen}" alt="imagen">`:""}
+      <h3>${p.titulo}</h3>
+      <p>${p.contenido}</p>
+      <small>Publicado por ${p.user}</small>
+      <div class="comment-box">
+        <input type="text" placeholder="Escribe un comentario" id="cmt-${i}">
+        <button onclick="addComment(${i})">Comentar</button>
+        <div id="comments-${i}">${p.comentarios.map(c=>`<div class='comment'>${c}</div>`).join("")}</div>
+      </div>
+      ${currentUser && currentUser.user===p.user?`<button class="delete-btn" onclick="deletePost(${i})">🗑 Eliminar</button>`:""}
+    `;
+    document.getElementById(p.categoria+"-list").appendChild(div);
+  });
+}
+renderPosts();
+
+// Publicar
+document.getElementById("postForm").addEventListener("submit", e=>{
+  e.preventDefault();
+  if(!currentUser){ alert("Debes iniciar sesión"); return; }
+  const titulo=document.getElementById("titulo").value;
+  const contenido=document.getElementById("contenido").value;
+  const categoria=document.getElementById("categoria").value;
+  const img=document.getElementById("preview").src!=""?document.getElementById("preview").src:null;
+  if(!categoria){ alert("⚠️ Debes seleccionar categoría"); return; }
+  posts.push({titulo,contenido,categoria,user:currentUser.user,comentarios:[],imagen:img});
+  localStorage.setItem("posts", JSON.stringify(posts));
+  renderPosts();
+  e.target.reset();
+  document.getElementById("preview").style.display="none";
+});
+
+// Vista previa de imagen
+document.getElementById("imagen").addEventListener("change", function(){
+  const file=this.files[0];
+  if(file){
+    const reader=new FileReader();
+    reader.onload=function(e){
+      document.getElementById("preview").src=e.target.result;
+      document.getElementById("preview").style.display="block";
+    }
+    reader.readAsDataURL(file);
+  }
+});
+
+// ---------------- COMENTARIOS ----------------
+function addComment(i){
+  const input=document.getElementById(`cmt-${i}`);
+  if(!input.value) return;
+  posts[i].comentarios.push(`${currentUser?currentUser.user:"Anónimo"}: ${input.value}`);
+  localStorage.setItem("posts", JSON.stringify(posts));
+  renderPosts();
+}
+
+// ---------------- ELIMINAR ----------------
+function deletePost(i){
+  if(currentUser && posts[i].user===currentUser.user){
+    if(confirm("¿Seguro que deseas eliminar esta publicación?")){
+      posts.splice(i,1);
+      localStorage.setItem("posts", JSON.stringify(posts));
+      renderPosts();
+    }
+  } else {
+    alert("No puedes eliminar publicaciones de otros usuarios");
+  }
+}
+</script>
+
+</body>
+</html>
